@@ -43,7 +43,7 @@ AWS Lambda                                              |
 
 ---
 
-# ⚙️ AWS Services Used
+# AWS Services Used
 
 * **Amazon S3** – Static website hosting
 * **Amazon API Gateway** – HTTP API endpoint
@@ -54,7 +54,7 @@ AWS Lambda                                              |
 
 ---
 
-# 🔄 Application Flow
+# Application Flow
 
 1. User opens the hosted website (S3)
 2. Submits signup form
@@ -68,53 +68,98 @@ AWS Lambda                                              |
 
 ---
 
-# 📸 Key Screenshots
+# Steps I Followed  In This Project
 
 ## 1. DynamoDB Setup
-
+Go with defaultsettings while creating the table
 ![Table Creation](Key_Screenshots/01-Table_Creation.jpg)
+You can add as many attributes that you want in table
 ![Item Creation](Key_Screenshots/02-Item_Creation_In_Table.jpg)
 
 ## 2. SNS Configuration
-
+Create a **Standard** topic 
 ![Create Topic](Key_Screenshots/03-Using_SNS_Create_Topic.jpg)
+Create a **Suscription**, select the your topic ARN and Choose Protocol as **Email**
+NOTE: Give the email where you are going to get the mails from AWS SNS.
 ![Notification](Key_Screenshots/04-Notification_From_AWS.jpg)
+Once you create the subscription. You are going to det the Email from
+AWS SNS to confirm Your Subsription as shown above. Confirm your 
+Subscription to get Notifications.
 ![Subscription Confirm](Key_Screenshots/05-Confirm_Subscription.jpg)
 
 ## 3. IAM Role Setup
-
+Create an IAM Role for **Lambda** and give the permissions to the role
+1. AmazonDynamoDBFullAccess
+2. AmazonSNSFullAccess
+3. AWSLambdaBasicExecutionRole
 ![IAM Permission](Key_Screenshots/06-Permission_Of_IAM_Role.png)
-![Lambda Role](Key_Screenshots/07-Use_IAM_Role_In_Lambda.jpg)
 
 ## 4. Lambda Function
-
+create a Lambda function select **Author from scratch** with 
+**runtime as python 3.12**
+but you can use other versions of python or other languages like 
+Node.js ,java , etc.. to write the code.
+Now let's use the IAM role which we created previously
+Change the default execution role to **Use another role**
+Choose your IAM role as the execution role.
+![Lambda Role](Key_Screenshots/07-Use_IAM_Role_In_Lambda.jpg)
+The Lambda function that I used -----> [Lambda Function](https://github.com/jaikishan-2007/AWS-signup-notification-system/blob/main/LambdaFunction.txt)
 ![Lambda Deploy](Key_Screenshots/08-Create_And_Deploy_LambdaFunction.jpg)
 
 ## 5. API Gateway
-
+Create the API gateway, Build **HTTP API**
+Add the integration Choose **Lambda**
+Select the correct region and Lambda function
+![HTTP_API](Key_Screenshots/09-HTTP_Api_Creation_with_Integration.jpg)
+Select the Method as **POST**
+I gave Resource path as **/signup** but you can give anything
+like /sign,/xyz...
+**NOTE:**The resource path which you give now will be used
+to add the same resource path at the end of Inovke URL.
+In stage keep the default settings.
+![Route Setup](Key_Screenshots/10-Adding_Route_to_Api.jpg)
+Once you are done with creation of API Gateway
+In navigation panel you select the **stages** in deploy section
+Here you are going to find your Invoke URL.
 ![Invoke URL](Key_Screenshots/11-Api_with_InvokeURL.jpg)
+Give the permissions in CORS as show below.
+These permissions helps us to link between API and S3.
 ![CORS](Key_Screenshots/19-Enabling_CORS_in_API.jpg)
 
 ## 6. Integration
-
+**Copy the ARN** Which is present in your subcription
+**copy till the name of your topic as shown below**
+![SNS_ARN](Key_Screenshots/12-ARN_In_SNS.jpg)
+Get back to lambda, In the Configuration tab 
+choose Environment variables from the left menu
+Here key **SNS_TOPIC_ARN** which is a varible that I used in my Lamda function 
+If you have used differet variable kindly enter that variable name in key.
+The value is the ARN which you copied previously.
 ![SNS Integration](Key_Screenshots/13-Integration_of_SNS_with_Lambda.jpg)
 
 ## 7. Testing
-
+You can test the code in lambda function itself. Here I used **Post man**
+to test
 ![Postman Test](Key_Screenshots/14-Testing_Using_Postman_Application.jpg)
+Success in test
+![Test1](Key_Screenshots/15-Test_complete.jpg)
+Data in Dynamo DB updated
+![Data Stored](Key_Screenshots/16-User_Added_To_List_in_DynamoDB.jpg)
+Mail from AWS SNS
+![Notification Sent](Key_Screenshots/17-User_Added_Notification.jpg)
+
+## 8. Frontend Hosting
+Create a S3 bucket and enable the **Static WebsiteHosting**
+Upload the html file make sure in html you connected the SignUp
+button with api invoke url like -->https://vbqzd30a1j.execute-api.ap-south-2.amazonaws.com/signup*
+NOTE: Don't forgot to mention your Resource path /xyz.. In my case it is **/signup**
+![S3 Static Website](Key_Screenshots/18-S3bucket_With_Enabled_StaticWebsite.jpg)
+
+## 9. Output
 ![Website Test](Key_Screenshots/20-Testing_website.jpg)
 ![Success](Key_Screenshots/21-Test_Successful.jpg)
-
-## 8. Output
-
-![Data Stored](Key_Screenshots/16-User_Added_To_List_in_DynamoDB.jpg)
-![Notification Sent](Key_Screenshots/17-User_Added_Notification.jpg)
 ![Email](Key_Screenshots/22-Email_sent_by_SNS.jpg)
 ![Data Updated](Key_Screenshots/23-Data_Updated_In_Table.jpg)
-
-## 9. Frontend Hosting
-
-![S3 Static Website](Key_Screenshots/18-S3bucket_With_Enabled_StaticWebsite.jpg)
 
 ---
 
@@ -161,7 +206,7 @@ Lambda is assigned an IAM role with permissions to:
 
 ---
 
-# ⭐ Conclusion
+# Conclusion
 
 This project demonstrates how to build a **scalable, serverless notification system** using AWS services. It is a great project for understanding cloud-native application design.
 
