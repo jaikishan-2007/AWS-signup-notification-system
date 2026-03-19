@@ -23,6 +23,7 @@ When a user submits their details through a web interface:
 
 ```
 User (Browser) ◀ ---------------------------------------
+(If user also subscribed to SNS)                        |
      │                                                  |
      ▼                                                  |
 S3 Static Website (Frontend)                            |
