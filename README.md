@@ -9,13 +9,13 @@ This project demonstrates real-world usage of **AWS Lambda, API Gateway, SNS, Dy
 # Project Overview
 
 When a user submits their details through a web interface:
-
 1.User interact with website which is hosted via S3 bucket
 2.  Request is sent via API Gateway
 3. Lambda function processes the request
 4. User data is stored in DynamoDB
 5. SNS triggers an email notification
 6. User receives confirmation email
+
 
 ---
 
@@ -113,6 +113,7 @@ Node.js ,java , etc.. to write the code.
 Now let's use the IAM role which we created previously
 Change the default execution role to **Use another role**
 Choose your IAM role as the execution role.
+
 ![Lambda Role](Key_Screenshots/07-Use_IAM_Role_In_Lambda.jpg)
 
 The Lambda function that I used -----> [Lambda Function](https://github.com/jaikishan-2007/AWS-signup-notification-system/blob/main/LambdaFunction.txt)
