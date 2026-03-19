@@ -8,12 +8,12 @@ This project demonstrates real-world usage of **AWS Lambda, API Gateway, SNS, Dy
 
 # Project Overview
 
-When a user submits their details through a web interface:
-1.User interact with website which is hosted via S3 bucket
-2.  Request is sent via API Gateway
-3. Lambda function processes the request
-4. User data is stored in DynamoDB
-5. SNS triggers an email notification
+When a user submits their details through a web interface:  
+1.User interact with website which is hosted via S3 bucket  
+2.  Request is sent via API Gateway  
+3. Lambda function processes the request  
+4. User data is stored in DynamoDB  
+5. SNS triggers an email notification  
 6. User receives confirmation email
 
 
@@ -128,7 +128,7 @@ Select the correct region and Lambda function
 ![HTTP_API](Key_Screenshots/09-HTTP_Api_Creation_with_Integration.jpg)
 Select the Method as **POST**
 I gave Resource path as **/signup** but you can give anything
-like /sign,/xyz...
+like /sign,/xyz...  
 **NOTE:** The resource path which you give now will be used
 to add the same resource path at the end of Inovke URL.
 In stage keep the default settings.
@@ -298,7 +298,7 @@ This project demonstrates how to build a **scalable, serverless notification sys
 
 # Author
 
-**Korada Jaikishan**
+**Korada Jaikishan**  
 Cloud Computing Learner | AWS Beginner
 ---
 
