@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Signup</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .box {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #22c55e;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Signup</h2>
+
+        <input type="text" id="UserId" placeholder="User ID" />
+        <input type="text" id="name" placeholder="Name" />
+        <input type="email" id="email" placeholder="Email" />
+
+        <button onclick="signup()">Sign Up</button>
+
+        <p id="response"></p>
+    </div>
+
+    <script>
+        async function signup() {
+            const UserId = document.getElementById("UserId").value;
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+
+            const responseText = document.getElementById("response");
+
+            try {
+                const res = await fetch("https://vbqzd30a1j.execute-api.ap-south-2.amazonaws.com/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        UserId: UserId,
+                        name: name,
+                        email: email
+                    })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    responseText.innerText = " Signup Successful!";
+                } else {
+                    responseText.innerText = " Error: " + data.error;
+                }
+
+            } catch (error) {
+                responseText.innerText = " Network error";
+            }
+        }
+    </script>
+
+</body>
+</html>

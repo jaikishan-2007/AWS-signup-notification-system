@@ -1,0 +1,55 @@
+import json
+import boto3
+import os
+from datetime import datetime
+
+dynamodb = boto3.resource('dynamodb')
+sns = boto3.client('sns')
+
+table = dynamodb.Table("DataOfUsers")
+SNS_TOPIC_ARN = os.environ['SNS_TOPIC_ARN']
+
+def lambda_handler(event, context):
+    try:
+        print("Event received:", event)  # DEBUG
+
+        body = json.loads(event.get('body', '{}'))
+
+        print("Parsed body:", body)  # DEBUG
+
+        user_id = body.get('UserId')
+        name = body.get('name')
+        email = body.get('email')
+
+        if not user_id or not name or not email:
+            return {
+                "statusCode": 400,
+                "body": json.dumps({"error": "Missing fields"})
+            }
+
+
+        table.put_item(
+            Item={
+                "UserId": user_id,
+                "name": name,
+                "email": email,
+            }
+        )
+
+        sns.publish(
+            TopicArn=SNS_TOPIC_ARN,
+            Message=f"New user: UserId-> {user_id}, Name-> {name}, Email-> {email}"
+        )
+
+        return {
+            "statusCode": 200,
+            "body": json.dumps({"message": "Success"})
+        }
+
+    except Exception as e:
+        print("ERROR:", str(e))  # 🔥 THIS WILL SHOW ROOT CAUSE
+
+        return {
+            "statusCode": 500,
+            "body": json.dumps({"error": str(e)})
+        }
