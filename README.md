@@ -186,7 +186,8 @@ NOTE: Don't forgot to mention your Resource path /xyz.. In my case it is **/sign
 
 ![S3 Static Website](Key_Screenshots/18-S3bucket_With_Enabled_StaticWebsite.jpg)
 
-S3 bucket policy and Frontend html------>[S3](https://github.com/jaikishan-2007/AWS-signup-notification-system/tree/main/S3_bucket)
+S3 bucket policy and Frontend html------>[S3](https://github.com/jaikishan-2007/AWS-signup-notification-system/tree/main/S3_bucket)  
+**NOTE:** AI-assisted tools (e.g., ChatGPT, Claude) were used to support frontend development and improve productivity.
 
 ## 9. Output
 Now go to the the staticwebsite and enter the credentials
