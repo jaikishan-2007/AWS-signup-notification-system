@@ -38,7 +38,7 @@ AWS Lambda                                              |
      │        └──► SNS Topic (Send Notification)        |
      │                         │                        |
      ▼                         ▼                        |
- IAM Role                Email Notification--------------
+ IAM Role                Email Notification---------------------------► subscribed to SNS User
 ```
 
 ---
